@@ -14,9 +14,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '2mb' }));
 
-
 // use routes
-// app.use('/api', require('./src/routes/common'));
+app.use('/api/user', require('./src/routes/user'));
 
 // use static
 app.use(express.static(path.resolve(__dirname, '../public')));
