@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 
 require('dotenv').config();
-// require('./src/utils/database');
+require('./src/utils/database');
 
 
 // init express
@@ -16,6 +16,7 @@ app.use(bodyParser.json({ limit: '2mb' }));
 
 // use routes
 app.use('/api/user', require('./src/routes/user'));
+app.use('/api/posts', require('./src/routes/posts'));
 
 // use static
 app.use(express.static(path.resolve(__dirname, '../public')));
