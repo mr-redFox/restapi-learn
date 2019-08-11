@@ -1,14 +1,17 @@
 const app = require('express').Router();
 const { auth } = require('../middlewares/auth');
 
-app.use(auth);
+// app.use(auth);
 
-const posts = [{name: "super post"}, {name: "second post"}];
+const posts = [
+    {name: "super post"},
+    {name: "second post"}
+];
 
+// get all posts
 app.get('/', async (req, res) => {
-    const email = req.userId;
     
-    res.send(`you are logined like ${email}`);
+    res.status(200).json(posts);
 });
 
 app.get('/all', async (req, res) => {

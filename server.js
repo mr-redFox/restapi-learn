@@ -28,4 +28,4 @@ app.use((req, res, next) => {
 });
 
 // start listening
-app.listen(process.env.PORT, () => logger.info(`app started on ${process.env.PORT}`) );
+module.exports = app.listen(process.env.PORT, () => logger.info(`app started on ${process.env.PORT}`) );
