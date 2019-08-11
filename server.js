@@ -1,11 +1,11 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const logger = require('../utils/logger');
+const logger = require('./src/utils/logger');
 
 // configs
 require('dotenv').config();
-require('./src/utils/database');
+// require('./src/utils/database');
 
 
 // init express
