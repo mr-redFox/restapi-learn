@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 // const db = require('../src/utils/database');
 const User = require('../src/models/user');
 
-describe('test database', async () => {
+describe('test database', () => {
     const url = 'mongodb://127.0.0.1:27017/test';
     let db;
 
     before(async () => {
-        db = await mongoose.connect(url, { useNewUrlParser: true });
+        db = mongoose.connect(url, { useNewUrlParser: true });
     });
 
     beforeEach(() => {
@@ -45,7 +45,7 @@ describe('test database', async () => {
     })
 
 
-    after(async () => {
+    after(() => {
         //await mongoose.connection.collection.users.drop()
     })
 });
