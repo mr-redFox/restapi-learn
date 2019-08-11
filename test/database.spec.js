@@ -7,9 +7,10 @@ const User = require('../src/models/user');
 
 describe('test database', async () => {
     const url = 'mongodb://127.0.0.1:27017/test';
+    let db;
 
     before(async () => {
-        await mongoose.connect(url, { useNewUrlParser: true });
+        db = await mongoose.connect(url, { useNewUrlParser: true });
     });
 
     beforeEach(() => {
@@ -27,13 +28,11 @@ describe('test database', async () => {
         })
     });
 
-    after(async () => {
-        await mongoose.connection.collection('users').drop()
-    })
+    
 
     it('should fetch one user from db', (done) => {
         User.findOne({email: 'user@mail.com'}, (err, user) => {
-            //expect(err).to.be.null;
+            expect(err).to.be.null;
             console.log('an error ', err);
             console.log('user ', user);
 
@@ -43,5 +42,10 @@ describe('test database', async () => {
         
 
         
+    })
+
+
+    after(async () => {
+        //await mongoose.connection.collection.users.drop()
     })
 });
