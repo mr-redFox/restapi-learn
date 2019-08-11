@@ -1,5 +1,5 @@
 const chai = require('chai');
-const expect  = require("chai").expect;
+const expect = require("chai").expect;
 const mongoose = require('mongoose');
 
 // const db = require('../src/utils/database');
@@ -13,37 +13,47 @@ describe('test database', () => {
     //     db = mongoose.connect(url, { useNewUrlParser: true });
     // });
 
-    beforeEach(() => {
-        db = mongoose.connect(url, { useNewUrlParser: true });
+    // beforeEach(() => {
+    //     db = mongoose.connect(url, { useNewUrlParser: true });
 
-        const fakeUser = {
-            email: 'user@mail.com',
-            password: 'super user password'
-        };
+    //     const fakeUser = {
+    //         email: 'user@mail.com',
+    //         password: 'super user password'
+    //     };
 
-        User.create(fakeUser, (err, res) => {
-            if(err) {
-                console.log('db seed User error: ', err);
+    //     User.create(fakeUser, (err, res) => {
+    //         if(err) {
+    //             console.log('db seed User error: ', err);
+    //         }
+
+    //         console.log('db seed User success: ', res);
+    //     })
+    // });
+
+
+
+    it('should fetch one user from db', async (done) => {
+        try {
+            db = mongoose.connect(url, { useNewUrlParser: true });
+            const user = new User({
+                email: 'user@mail.com',
+                password: 'super user password'
+            });
+
+            const result = await user.save();
+
+            const finded = await User.findOne({ email: 'user@mail.com' });
+
+            if(!finded) {
+                throw new Error('user not found');
             }
 
-            console.log('db seed User success: ', res);
-        })
-    });
-
-    
-
-    it('should fetch one user from db', (done) => {
-        User.findOne({email: 'user@mail.com'}, (err, user) => {
-            expect(err).to.be.null;
-            console.log('an error ', err);
-            console.log('user ', user);
-
-            //expect(user).to.be.an('object');
+            console.log('user: ', finded)
             done();
-        });
-        
-
-        
+        } catch(err) {
+            console.log(err);
+            done();
+        }
     })
 
 
