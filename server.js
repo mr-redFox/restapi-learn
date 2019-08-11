@@ -1,11 +1,11 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const logger = require('../utils/logger');
+const logger = require('./src/utils/logger');
 
 // configs
 require('dotenv').config();
-require('./src/utils/database');
+// require('./src/utils/database');
 
 
 // init express
@@ -28,4 +28,4 @@ app.use((req, res, next) => {
 });
 
 // start listening
-app.listen(process.env.PORT, () => logger.info(`app started on ${process.env.PORT}`) );
+module.exports = app.listen(process.env.PORT, () => logger.info(`app started on ${process.env.PORT}`) );
