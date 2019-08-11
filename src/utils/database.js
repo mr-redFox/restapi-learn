@@ -1,12 +1,12 @@
-
 const mongoose = require('mongoose');
+const logger = require('../utils/logger');
 
-mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true});
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true });
 
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'mongoose connection error: '));
+db.on('error', () => logger.fatal('mongoose connection fail'));
 
-db.once('open', () => console.log('connected to db') );
+db.once('open', () => logger.info('connected to db'));
 
 module.exports = db;

@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const logger = require('../utils/logger');
 
-
+// configs
 require('dotenv').config();
 require('./src/utils/database');
 
@@ -27,4 +28,4 @@ app.use((req, res, next) => {
 });
 
 // start listening
-app.listen(process.env.PORT, () => console.log(`app started on ${process.env.PORT}`) );
+app.listen(process.env.PORT, () => logger.info(`app started on ${process.env.PORT}`) );

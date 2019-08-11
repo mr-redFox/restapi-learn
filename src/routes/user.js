@@ -1,21 +1,22 @@
 const app = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-
 //crypto.randomBytes(20).toString('hex');
+
+app.use(require('../utils/response'));
 
 //registration route
 app.post('/signup', async (req, res) => {
     //validate user input
     const { email, password } = req.body;
     let token;
-
     //save into db
     try {
         //chek if user with this email exist
         const emailTaken = await User.find({ email });
-        if(emailTaken) {
-            return res.status(400).send('email alredy taken');
+
+        if(emailTaken.length > 0) {
+            return res.fail('email alredy taken');
         }
 
         const user = new User({ email, password });
@@ -28,13 +29,13 @@ app.post('/signup', async (req, res) => {
             }, process.env.TOKEN_SECRET, {expiresIn: '2h'});
         }
         
-        return res.status(201).json({
+        return res.success({
             userName: savedUser.email,
             token
-        })
+        }, 201);
 
     } catch (error) {
-        return res.status(400).send('Fail registration');
+        return res.fail('Fail registration');
     }
     
 });
