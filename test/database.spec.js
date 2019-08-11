@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
 const User = require('../src/models/user');
 
 describe('test database', async () => {
-    const url = 'mongodb://127.0.0.1:27017/test';
+    const url = 'mongodb://127.0.0.1:27017';
 
     before(async () => {
-        await mongoose.connect(url);
+        await mongoose.connect(url, { useNewUrlParser: true });
     });
 
     beforeEach(() => {
@@ -33,8 +33,9 @@ describe('test database', async () => {
 
     it('should fetch one user from db', (done) => {
         User.findOne({email: 'user@mail.com'}, (err, user) => {
-            expect(err).to.be.null;
-            //console.log(user);
+            //expect(err).to.be.null;
+            console.log('an error ', err);
+            console.log('user ', user);
 
             expect(user).to.be.an('object');
             done();
